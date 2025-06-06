@@ -1,23 +1,18 @@
 from pydantic import BaseModel
 
-class UserCreate(BaseModel):
-    username: str
-    password: str
-
-class User(BaseModel):
-    id: int
-    username: str
-
-    class Config:
-        orm_mode = True
-
-class TaskCreate(BaseModel):
+class TaskBase(BaseModel):
     title: str
+    description: str | None = None
+    completed: bool = False
 
-class Task(BaseModel):
+class TaskCreate(TaskBase):
+    pass
+
+class TaskUpdate(TaskBase):
+    pass
+
+class TaskOut(TaskBase):
     id: int
-    title: str
-    done: bool
 
     class Config:
         orm_mode = True
