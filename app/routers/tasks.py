@@ -10,7 +10,7 @@ router = APIRouter(
     tags=["Tasks"]
 )
 
-@router.post("/", response_model=schemas.Task)
+@router.post("/", response_model=schemas.TaskOut)
 def create_task(
     task: schemas.TaskCreate,
     db: Session = Depends(database.get_db),
@@ -25,7 +25,7 @@ def create_task(
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error creating task: {str(e)}")
 
-@router.get("/", response_model=List[schemas.Task])
+@router.get("/", response_model=List[schemas.TaskOut])
 def get_tasks(
     db: Session = Depends(database.get_db),
     current_user: models.User = Depends(get_current_user)
@@ -36,7 +36,7 @@ def get_tasks(
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error fetching tasks: {str(e)}")
 
-@router.put("/{task_id}", response_model=schemas.Task)
+@router.put("/{task_id}", response_model=schemas.TaskOut)
 def update_task(
     task_id: int,
     updated_task: schemas.TaskCreate,

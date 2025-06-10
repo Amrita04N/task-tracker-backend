@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const navigate = useNavigate();
-
 const Login = () => {
+  const navigate = useNavigate(); // ✅ moved inside component
+
   const [formData, setFormData] = useState({
     username: "",
     password: ""
@@ -20,34 +20,29 @@ const Login = () => {
   };
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  try {
-    const response = await axios.post("http://127.0.0.1:8000/login",
-      new URLSearchParams({
-        username: formData.username,
-        password: formData.password
-      }),
-      {
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded"
+    try {
+      const response = await axios.post("http://127.0.0.1:8000/login",
+        new URLSearchParams({
+          username: formData.username,
+          password: formData.password
+        }),
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+          }
         }
-      }
-    );
+      );
 
-    // ✅ Save token to localStorage
-    localStorage.setItem("token", response.data.access_token);
-
-    setMessage("Login successful! ✅");
-
-    // ✅ Redirect to task page
-    navigate("/tasks");
-  } catch (error) {
-    console.error("Login error:", error);
-    setMessage("Login failed ❌");
-  }
-};
-
+      localStorage.setItem("token", response.data.access_token);
+      setMessage("Login successful! ✅");
+      navigate("/tasks"); // ✅ go to Tasks page
+    } catch (error) {
+      console.error("Login error:", error);
+      setMessage("Login failed ❌");
+    }
+  };
 
   return (
     <div className="flex flex-col items-center mt-20">
