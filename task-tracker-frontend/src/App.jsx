@@ -1,16 +1,8 @@
-
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Login from "./pages/Login";
-import Tasks from "./pages/Tasks";
-
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/tasks" element={<Tasks />} />
-      </Routes>
-    </BrowserRouter>
+    <div className="text-3xl font-bold text-blue-500 p-4">
+      🎮 Tailwind is Working!
+    </div>
   );
 }
 
