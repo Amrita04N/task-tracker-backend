@@ -17,7 +17,7 @@ function Tasks() {
     }
 
     axios
-      .get("http://127.0.0.1:8000/tasks", {
+      .get("https://task-tracker-backend-27lk.onrender.com/tasks", {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => setTasks(res.data))
@@ -36,7 +36,7 @@ function Tasks() {
     if (editTaskId) {
       // Update task
       axios
-        .put(`http://127.0.0.1:8000/tasks/${editTaskId}`, taskData, {
+        .put(`https://task-tracker-backend-27lk.onrender.com/tasks/${editTaskId}`, taskData, {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then(() => {
@@ -48,7 +48,7 @@ function Tasks() {
     } else {
       // Create new task
       axios
-        .post("http://127.0.0.1:8000/tasks", taskData, {
+        .post("https://task-tracker-backend-27lk.onrender.com/tasks", taskData, {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then(() => {
@@ -61,7 +61,7 @@ function Tasks() {
 
   const handleDelete = (id) => {
     axios
-      .delete(`http://127.0.0.1:8000/tasks/${id}`, {
+      .delete(`https://task-tracker-backend-27lk.onrender.com/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then(() => fetchTasks());

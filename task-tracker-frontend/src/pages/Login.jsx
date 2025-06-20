@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const navigate = useNavigate(); // ✅ moved inside component
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     username: "",
@@ -23,21 +23,20 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://127.0.0.1:8000/login",
-        new URLSearchParams({
-          username: formData.username,
-          password: formData.password
-        }),
-        {
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
-          }
-        }
-      );
+      const response = await axios.post("https://task-tracker-backend-27lk.onrender.com/auth/login", 
+  new URLSearchParams({
+    username: formData.username,
+    password: formData.password
+  }), 
+  {
+    headers: { "Content-Type": "application/x-www-form-urlencoded" }
+  }
+);
+
 
       localStorage.setItem("token", response.data.access_token);
       setMessage("Login successful! ✅");
-      navigate("/tasks"); // ✅ go to Tasks page
+      navigate("/tasks");
     } catch (error) {
       console.error("Login error:", error);
       setMessage("Login failed ❌");
@@ -68,7 +67,7 @@ const Login = () => {
           Log In
         </button>
       </form>
-      {message && <p className="mt-4">{message}</p>}
+      {message && <p className="mt-4 text-lg">{message}</p>}
     </div>
   );
 };

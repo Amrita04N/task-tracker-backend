@@ -2,8 +2,9 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "http://127.0.0.1:8000", // FastAPI backend
+  baseURL: "https://task-tracker-backend-271k.onrender.com", // Deployed FastAPI backend
 });
+
 
 // Attach token if available
 API.interceptors.request.use((req) => {
