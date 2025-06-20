@@ -30,11 +30,12 @@ def register_user(user: schemas.UserCreate, db: Session = Depends(database.get_d
         raise HTTPException(status_code=500, detail=f"Error registering user: {str(e)}")
 
 @router.post("/login")
-def login_user(form_data: schemas.UserLogin, db: Session = Depends(database.get_db)):
+def login_user(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
     try:
-        user = db.query(models.User).filter(models.User.username == form_data.username).first()
+        user = db.query(User).filter(User.username == form_data.username).first()
         if not user or not pwd_context.verify(form_data.password, user.hashed_password):
             raise HTTPException(status_code=401, detail="Invalid credentials")
+
         access_token = create_access_token(data={"sub": user.username})
         return {"access_token": access_token, "token_type": "bearer"}
     except HTTPException:
