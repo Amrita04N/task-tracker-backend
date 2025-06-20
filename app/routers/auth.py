@@ -2,6 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from passlib.context import CryptContext
 from app.database import get_db
+from fastapi.security import OAuth2PasswordRequestForm
 
 
 from app import models, schemas, database
